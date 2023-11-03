@@ -8,11 +8,43 @@
 import SwiftUI
 
 struct FrameworkDetailView: View {
+    
+    var framework: Framework
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack() {
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(Color(.label))
+                        .imageScale(.large)
+                        .frame(width: 44, height: 44)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            FrameworkTitleView(framework: framework)
+            Text(framework.description)
+                .font(.body)
+                .padding()
+            
+            Spacer()
+            
+            Button{
+                
+            } label: {
+                AFButton(title: "Learn more")
+            }
+        }
     }
 }
 
 #Preview {
-    FrameworkDetailView()
+    FrameworkDetailView(framework: MockData.frameworks[2])
 }
