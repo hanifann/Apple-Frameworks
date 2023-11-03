@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FrameworksGridView: View {
     
+    @StateObject var viewModel = FrameworkGridViewModel()
+    
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
@@ -19,10 +21,18 @@ struct FrameworksGridView: View {
                 LazyVGrid(columns: columns){
                     ForEach(MockData.frameworks){ framework in
                         FrameworkTitleView(framework: framework)
+                            .onTapGesture {
+                                viewModel.selectedFramework = framework
+                            }
                     }
                 }
             }
             .navigationTitle("🍎 frameworks")
+            .sheet(isPresented: $viewModel.isShowingDetailView,
+                   content: {
+                FrameworkDetailView(framework: viewModel.selectedFramework!,
+                                    isShowingDetailView: $viewModel.isShowingDetailView)
+            })
         }
     }
 }
